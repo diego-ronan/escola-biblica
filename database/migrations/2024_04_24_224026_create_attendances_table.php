@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->date('date')->nullable();
             $table->string('student_name', 100);
-            $table->string('attendance_status');
+            $table->boolean('attendance_status')->default(0);
             $table->integer('classroom_id');
             $table->timestamps();
         });

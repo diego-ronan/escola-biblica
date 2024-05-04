@@ -40,9 +40,9 @@
                             class="w3-radio" 
                             type="radio"
                             wire:model.live="attendance_status.{{$key}}"
-                            value="Ausente"
+                            value="0"
                             id="ausente{{$key}}"
-                            style="margin-right: 32px;"    
+                            style="margin-right: 32px;" 
                         />
                     </td>
                     <td>
@@ -51,7 +51,7 @@
                             class="w3-radio" 
                             type="radio" 
                             wire:model.live="attendance_status.{{$key}}"
-                            value="Presente"
+                            value="1"
                             id="presente{{$key}}"
                         />            
                     </td>

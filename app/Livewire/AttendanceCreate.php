@@ -4,7 +4,6 @@ namespace App\Livewire;
 
 use App\Models\Attendance;
 use App\Models\Student;
-use Livewire\Attributes\Validate;
 use Livewire\Component;
 
 class AttendanceCreate extends Component
@@ -13,13 +12,16 @@ class AttendanceCreate extends Component
     public $student_name = [];
     public $attendance_status = [];
     public $classroom_id = [];
-    
+
     public function save()
     {
-        foreach ($this->attendance_status as $key => $status) {
+        foreach ($this->student_name as $key => $name) {
+            
+            $status = isset($this->attendance_status[$key]) ? $this->attendance_status[$key] : 0;
+            
             Attendance::create([
                 'date' => date('Y-m-d', strtotime($this->date)),
-                'student_name' => $this->student_name[$key],
+                'student_name' => $name,
                 'attendance_status' => $status,
                 'classroom_id' => $this->classroom_id[$key]
             ]);
@@ -29,6 +31,12 @@ class AttendanceCreate extends Component
     public function render()
     {
         $students = Student::all();
+        
+        // Se $attendance_status estiver vazio, inicialize todos os valores como "0" (Ausente)
+        if (empty($this->attendance_status)) {
+            $this->attendance_status = array_fill(0, count($students), '0');
+        }
+        
         return view('livewire.attendance-create', [
             'students' => $students
         ]);
